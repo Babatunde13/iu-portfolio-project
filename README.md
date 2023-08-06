@@ -2,6 +2,16 @@
 
 This contains the source code of the SmartPass web app.
 
+## Getting Started
+
+Clone this repository using the following command:
+
+```bash
+git clone https://github.com/Babatunde13/iu-portfolio-project.git
+```
+
+## Running the Project
+
 To run this project locally, you need to have [Node.js](https://nodejs.org/en/) installed. Then, run the following commands to start the frontend server:
 
 ```bash
