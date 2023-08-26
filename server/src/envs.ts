@@ -3,6 +3,10 @@ import AppError from './shared/AppError'
 
 config()
 
+/**
+ * 
+ * @returns The database url based on the environment
+ */
 const getDatabaseUrl = () => {
     if (process.env.NODE_ENV === 'test') {
         return process.env.TEST_DATABASE_URL || 'mongodb://localhost:27017/express-ts-boilerplate-test'
@@ -11,6 +15,9 @@ const getDatabaseUrl = () => {
     return process.env.DATABASE_URL || 'mongodb://localhost:27017/express-ts-boilerplate'
 }
 
+/**
+ * This object contains all the environment variables used in the application
+ */
 const envs = {
     port: parseInt(process.env.PORT || '3001'),
     host: process.env.HOST || 'localhost:3001',
@@ -30,6 +37,11 @@ const envs = {
     }
 }
 
+/**
+ * This function verifies that all the environment variables are set
+ * @returns true if all the environment variables are set
+ * @throws AppError if any of the environment variables are not set
+ */
 const verifyEnv = () => {
     if (!envs.db.DATABASE_URL) {
         throw new AppError('DATABASE_URL is not set', 'environment_variables_check')

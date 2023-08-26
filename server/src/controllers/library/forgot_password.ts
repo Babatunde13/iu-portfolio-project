@@ -8,6 +8,9 @@ import { forgotPasswordMail } from '../../email_templates/forgot_password.templa
 import envs from '../../envs'
 import { sendMail } from '../../utils/send_mail.utils'
 
+/**
+ * Sends password reset email to user if the user exists
+ */
 export const forgotPassword = async (email: string) => {
     const findUserResult = await userModel.findOne({ email })
     if (isError(findUserResult) || !findUserResult.data) {
@@ -28,9 +31,9 @@ export const forgotPassword = async (email: string) => {
     const name = `${findUserResult.data.firstName} ${findUserResult.data.lastName}`
     const url = `${envs.app_url}/reset-password/${tokenResult.data}`
 
-    const mailSubject = 'Reset Your StrongPass Password'
+    const mailSubject = 'Reset Your SmaartPass Password'
 
-    sendMail(email, name, mailSubject, forgotPasswordMail({ name, url }))
+    await sendMail(email, name, mailSubject, forgotPasswordMail({ name, url }))
 
     return { data: 'successfully sent password reset email' }
 }

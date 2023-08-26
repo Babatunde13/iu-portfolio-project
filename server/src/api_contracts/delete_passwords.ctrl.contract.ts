@@ -15,6 +15,9 @@ export interface Req extends BaseReq {
 
 export type Res = Promise<ErrorResponse | SuccessResponse<string>>
 
+/**
+ * This is the validation configuration for the request body
+ */
 export const validationConfig = (data: ClientReq) => {
     const ids = data._ids
     for (const id of ids) {

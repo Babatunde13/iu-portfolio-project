@@ -6,5 +6,5 @@ export interface UserClient extends BaseModelClient {
     firstName: string
     lastName: string
     email: string
-    password?: string
+    password: string
 }

@@ -4,7 +4,7 @@ import categoryModel from '../models/categories.model.server'
 import logger from '../shared/logger'
 
 /**
- * Create Category
+ * Create Password Category
  */
 export default async function createCategoryCtrl (req: Req): Res {
     const { user } = req

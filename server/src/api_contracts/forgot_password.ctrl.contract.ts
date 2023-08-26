@@ -14,6 +14,9 @@ export interface Req extends BaseReq {
 
 export type Res = Promise<ErrorResponse | SuccessResponse<{}>>
 
+/**
+ * This is the validation configuration for the request body
+ */
 export const validationConfig = (data: ClientReq) => {
     if (!validateEmail(data.email)) {
         return { error: new AppError('Invalid email') }

@@ -23,6 +23,9 @@ export interface Req extends BaseReq {
 
 export type Res = Promise<ErrorResponse | SuccessResponse<ClientRes>>
 
+/**
+ * This is the validation configuration for the request body
+ */
 export const validationConfig = (data: ClientReq) => {
     if (!isValidObjectId(data._id)) {
         return { error: new AppError('Invalid id') }

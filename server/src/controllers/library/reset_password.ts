@@ -6,6 +6,9 @@ import { decodeUser } from '../../utils/jwt.utils'
 import userModel from '../../models/users.models.server'
 import { hashPassword } from '../../utils/hash_password.utils'
 
+/**
+ * Resets the password of a user if the token is a valid reset password token
+ */ 
 export const resetPassword = async (token: string, password: string) => {
     const decodeUserResult = decodeUser(token)
     if (isError(decodeUserResult) || !decodeUserResult.data) {

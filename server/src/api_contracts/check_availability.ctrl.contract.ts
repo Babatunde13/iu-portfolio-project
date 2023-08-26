@@ -17,7 +17,7 @@ export type Res = Promise<ErrorResponse | SuccessResponse<ClientRes>>
 
 export const validationConfig = (data: ClientReq) => {
     if (!data.email && !data.username) {
-        return { error: new AppError('One of email or password should be provided.')}
+        return { error: new AppError('One of email or username should be provided.')}
     }
     if (data.email && !validateEmail(data.email)) {
         return { error: new AppError('Invalid email') }

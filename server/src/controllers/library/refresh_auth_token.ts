@@ -5,6 +5,9 @@ import AppError from '../../shared/AppError'
 import isError from '../../utils/is_error.utils'
 import { generateAuthTokens } from './generate_auth_tokens'
 
+/**
+ * Refreshes the auth tokens for a user
+ */ 
 export const refreshAuthToken = async (refreshToken: string) => {
     const refreshTokenDoc = await tokenModel.findOne({
         token: refreshToken,

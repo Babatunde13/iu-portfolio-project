@@ -4,6 +4,9 @@ import tokenModel from '../../models/tokens.model.server'
 import AppError from '../../shared/AppError'
 import { decodeUser } from '../../utils/jwt.utils'
 
+/**
+ * Verifies a reset password token
+ */ 
 export const verifyResetPasswordToken = async (token: string) => {
     const decodeUserResult = decodeUser(token)
     if (isError(decodeUserResult) || !decodeUserResult.data) {

@@ -30,18 +30,19 @@ const userModel = new BaseModel<IUSer, UserClient>({
             username: user.username,
             firstName: user.firstName,
             lastName: user.lastName,
+            password: user.password,
             email: user.email,
             created: user.created,
             updated: user.updated,
         }
     },
-    async preSave (user: any) {
+    async preSave (user: IUSer) {
         const hashedPassword = await hashPassword(user.password)
         if (isError(hashedPassword)) {
             return hashedPassword
         }
         user.password = hashedPassword.data
-        return user
+        return { data: user }
     }
 })
 

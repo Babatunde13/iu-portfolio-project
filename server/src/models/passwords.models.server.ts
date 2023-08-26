@@ -38,13 +38,13 @@ const passwordModel = new BaseModel<IPassword, PasswordClient>({
             updated: password.updated,
         }
     },
-    async preSave (password: any) {
+    async preSave (password: IPassword) {
         const encryptPassword = encryptString(password.password, envs.secrets.encryption)
         if (isError(encryptPassword) || !encryptPassword.data) {
             return encryptPassword
         }
         password.password = encryptPassword.data?.encryptedData
-        return password
+        return { data: password }
     }
 })
 

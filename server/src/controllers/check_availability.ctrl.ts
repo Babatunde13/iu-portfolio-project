@@ -1,9 +1,11 @@
 import { Req, Res, validationConfig } from '../api_contracts/check_availability.ctrl.contract'
 import isError from '../utils/is_error.utils'
 import usersModel from '../models/users.models.server'
+import { UserClient } from 'src/models/users.model.client'
+import { FindQuery } from 'src/models/base.model.server'
 
 /**
- * Check  email and usernameavailability
+ * Check  email and username availability
  */
 export default async function checkAvailabilityCtrl (req: Req): Res {
     const payload = req.body
@@ -18,7 +20,7 @@ export default async function checkAvailabilityCtrl (req: Req): Res {
         }
     }
 
-    let filter: any = {}
+    let filter: FindQuery<Partial<UserClient>> = {}
     if (payload.email) {
         filter.email = payload.email
     } else if (payload.username) {

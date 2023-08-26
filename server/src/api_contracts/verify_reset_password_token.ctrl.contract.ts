@@ -13,6 +13,9 @@ export interface Req extends BaseReq {
 
 export type Res = Promise<ErrorResponse | SuccessResponse<{}>>
 
+/**
+ * This is the validation configuration for the request body
+ */
 export const validationConfig = (data: ClientReq) => {
     if (typeof data.token !== 'string') {
         return { error: new AppError('Invalid token') }

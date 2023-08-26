@@ -11,6 +11,9 @@ const saveToken = async (token: string, user: string, type: TokenTypes, expires:
     })
 }
 
+/**
+ * Generates auth tokens(accessToken and refreshToken) for a user
+ */
 export const generateAuthTokens = async (user: IUSer) => {
     const accessTokenExpires = Date.now() + 1000 * 60 * 30 // expire after 30 mins
     const accessToken = encodeUser(user._id, Date.now() + 1000 * 60 * 30, TokenTypes.ACCESS)

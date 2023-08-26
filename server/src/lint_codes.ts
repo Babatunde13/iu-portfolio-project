@@ -15,10 +15,25 @@ const infoLog = (data: string) => {
     console.log('\x1b[34m', data, '\x1b[0m')
 }
 
+interface LintResult {
+    filePath: string
+    messages: {
+        ruleId: string
+        message: string
+        line: number
+        column: number
+        severity: number
+    }[]
+}
+
+/**
+ * This function is used to lint all the files in the project using eslint
+ */
 (async function lintFiles() {
     infoLog('Linting files...')
     
     const cwd = process.cwd()
+    // Get all the files in the project
     const files = glob.sync('**/*', {
         cwd,
         ignore: ['node_modules/**', 'dist/**', '.vscode/**'],
@@ -32,7 +47,7 @@ const infoLog = (data: string) => {
         const extension = path.extname(file)
 
         return ['.js', '.ts'].includes(extension)
-    })
+    }) // Only lint js and ts files
 
     // https://eslint.org/docs/developer-guide/nodejs-api#-new-eslintoptions
     const eslint = new ESLint({
@@ -50,12 +65,12 @@ const infoLog = (data: string) => {
 
         const filePath = path.join(cwd, file)
         try {
-            const lintResult = await eslint.lintFiles([filePath])
-            await ESLint.outputFixes(lintResult)
+            const lintResults: LintResult[] = await eslint.lintFiles([filePath])
+            await ESLint.outputFixes(lintResults)
 
-            if (lintResult.length) {
-                lintResult.forEach((r: any) => {
-                    r.messages.forEach((m: any) => {
+            if (lintResults.length) {
+                lintResults.forEach((r) => {
+                    r.messages.forEach((m) => {
                         if (m.severity === 2) {
                             errors.push(
                                 `❌ ${`eslint(${m.ruleId || ''})`} - ${m.message} at ${r.filePath}:${m.line}:${m.column}`

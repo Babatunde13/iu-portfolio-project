@@ -16,6 +16,9 @@ export type ClientRes = PasswordClient
 export type Req = ReqWithParams<ClientReq>
 export type Res = Promise<ErrorResponse | SuccessResponse<ClientRes>>
 
+/**
+ * This is the validation configuration for the request body
+ */
 export const validationConfig = (data: { id: string }) => {
     if (!isValidObjectId(data.id)) {
         return { error: new AppError('Invalid password id') }

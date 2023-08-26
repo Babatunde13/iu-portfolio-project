@@ -19,6 +19,15 @@ import verifyResetPasswordTokenCtrl from './controllers/verify_reset_password_to
 
 const { GET, POST, DELETE, PUT } = HttpMethod
 
+/**
+ * All the routes in the application
+ * This is where new routes are added
+ * The route object contains the following properties
+ * path: string - The path of the route
+ * method: HttpMethod - The method of the route(GET, POST, PUT, DELETE)
+ * handlers: array of functions - The handlers for the route, non middleware handlers are defined in controllers folder
+ * Middleware handlers are defined in the middlewares folder
+ */
 export const routes: Route[] = [
     {
         path: '/api/v1/register/',
@@ -125,7 +134,7 @@ export const routes: Route[] = [
                 return {
                     success: true,
                     data: null,
-                    message: `Welcome to StrongPass API, you can access the <a href="${req.protocol}://${req.get('host')}/api/v1/docs">docs</a> here.`,
+                    message: `Welcome to SmaartPass API, you can access the <a href="${req.protocol}://${req.get('host')}/api/v1/docs">docs</a> here.`,
                     options: {
                         sendString: true
                     }

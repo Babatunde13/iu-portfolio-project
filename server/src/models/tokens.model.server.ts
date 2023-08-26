@@ -50,4 +50,3 @@ const tokenModel = new BaseModel<IToken, TokenClient>({
 })
 
 export default tokenModel
-

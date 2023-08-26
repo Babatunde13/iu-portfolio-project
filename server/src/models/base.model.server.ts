@@ -46,6 +46,14 @@ interface CreateModelOptions<T, ModelClient> {
     toJSON: (o: T) => ModelClient
 }
 
+/**
+ * BaseModel is a wrapper around mongoose model.
+ * When creating a new model, BaseModel creates a schema with the following properties:
+ * active:, created, updated
+ * It provides a simple interface for creating, finding, updating and deleting documents.
+ * It also ensures that call to db does not throw an error but returns an error object instead.
+ * This is to ensure that the server does not crash when there is an error from the db.
+ */
 export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
     schema: Schema
     modelName: string
@@ -70,6 +78,10 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
 
     }
 
+    /**
+     * Creates a mongoose schema with the following additional properties:
+     * active:, created, updated
+     */
     private createSchema(schema: SchemaDefinition): Schema {
         return new Schema(
             {
@@ -85,6 +97,9 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
         )
     }
 
+    /**
+     * Creates a new document without saving it to the database
+     */
     async create(data: Partial<T>): Promise<DataOrError<T>> {
         try {
             const doc = new this.model(data)
@@ -98,6 +113,9 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
         }
     }
     
+    /**
+     * Creates a new document and saves it to the database
+     */ 
     async createAndSave(data: Partial<T>): Promise<DataOrError<T>> {
         try {
             const doc = await this.model.create(data)
@@ -111,6 +129,10 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
         }
     }
 
+    /**
+     * Finds documents that match the query
+     * It uses the query options to limit, skip, sort and project the result
+     */
     async find(
         query: FindQuery<Partial<T>>,
         options?: QueryOptions,
@@ -140,6 +162,10 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
         }
     }
 
+    /**
+     * Finds the first document that matches the query
+     * It uses the query options to limit, skip, sort and project the result
+     */
     async findOne(
         query: FindQuery<Partial<T>>,
         options?: QueryOptions
@@ -169,6 +195,9 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
         }
     }
 
+    /**
+     * Finds a document by id
+     */
     async findById(
         id: string,
         options?: QueryOptions
@@ -198,6 +227,10 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
         }
     }
 
+    /**
+     * Finds the first document that matches the query and updates it
+     * It uses the query options to limit, skip, sort and project the result
+     */
     async updateOne(
         query: FindQuery<T>,
         update: UpdateManyUpdate<T>,
@@ -215,6 +248,10 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
         }
     }
 
+    /**
+     * Finds documents that match the query and updates them
+     * It uses the query options to limit, skip, sort and project the result
+     */
     async updateMany(
         query: FindQuery<T>,
         update: UpdateManyUpdate<T>,
@@ -232,6 +269,10 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
         }
     }
 
+    /**
+     * Finds the first document that matches the query and deletes it
+     * It uses the query options, skip, sort to find the result
+     */
     async deleteOne(
         query: FindQuery<T>,
         options: QueryOptions = {}
@@ -249,6 +290,10 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
         }
     }
 
+    /**
+     * Finds documents that match the query and deletes them
+     * It uses the query options to limit, skip to find the result
+     */
     async deleteMany(
         query: FindQuery<T>,
         options: Omit<Omit<QueryOptions, 'projection'>, 'sort'> = {}
@@ -265,6 +310,10 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
         }
     }
 
+    /**
+     * Counts the number of documents that match the query
+     * It uses the query options to limit, skip to count the result
+     */
     async count(
         query: FindQuery<T>,
         options: QueryOptions = {}
@@ -281,6 +330,9 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
         }
     }
 
+    /**
+     * Aggregates documents using the pipeline stages
+     */
     async aggregate(
         pipeline: PipelineStage[]
     ) {
@@ -298,9 +350,9 @@ export class BaseModel<T extends ModelAPI<{}>, ModelClient> {
 }
 
 type Query<T> = FilterQuery<T>
-type FindQuery<T> = Query<T> & {}
+export type FindQuery<T> = Query<T> & {}
 
-export type UpdateManyUpdate<T = { [key: string]: any }> = {
+export type UpdateManyUpdate<T> = {
     $set?: Partial<T>
     $push?: Partial<T>
     $inc?: Partial<T>

@@ -3,6 +3,11 @@ import { decodeUser } from '../utils/jwt.utils'
 import isError from '../utils/is_error.utils'
 import User from '../models/users.models.server'
 
+/**
+ * 
+ * This middleware checks if the user's token is valid
+ * It also adds the user to the request object if the token is valid
+ */
 export default async function requiresLogin (req: BaseReq): BaseMiddleware {
     let token = req.headers['authorization']
     if (!token || typeof token !== 'string' ||  token.split(' ')[0] !== 'Bearer') {
