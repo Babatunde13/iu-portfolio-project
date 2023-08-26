@@ -12,7 +12,23 @@ git clone https://github.com/Babatunde13/iu-portfolio-project.git
 
 ## Running the Project
 
-To run this project locally, you need to have [Node.js](https://nodejs.org/en/) installed. Then, run the following commands to start the frontend server:
+To run this project locally, you need to have [Node.js](https://nodejs.org/en/) installed.
+You also need to have [MongoDB](https://www.mongodb.com/) installed and running on your machine.
+
+## Generate Test Data
+
+To generate test data, run the following command:
+
+```bash
+cd server && npm run seed
+```
+
+This will generate 10 users and their email and password will be stored in the `users.json` file in the root directory.
+
+## Start the Servers
+
+To run the servers, you need to start the frontend and backend servers.
+Run the following commands to start the frontend server:
 
 ```bash
 cd client && npm install && npm run build && npm run dev

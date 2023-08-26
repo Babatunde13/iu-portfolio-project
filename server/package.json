@@ -10,7 +10,8 @@
       "start": "node dist/src/index.js",
       "build:watch": "./node_modules/typescript/bin/tsc --project ./tsconfig.json --watch",
       "dev": "./node_modules/nodemon/bin/nodemon.js dist/src/index.js",
-      "prepare": "husky install"
+      "prepare": "husky install",
+      "seed": "npm run build && node dist/src/utils/fake_data.util.js"
    },
    "keywords": [
       "encryption",
@@ -33,6 +34,7 @@
       "node-mailjet": "^6.0.2"
    },
    "devDependencies": {
+      "@faker-js/faker": "^8.0.2",
       "@types/bcrypt": "5.0.0",
       "@types/cors": "^2.8.13",
       "@types/dotenv": "8.2.0",

@@ -42,6 +42,7 @@ const userModel = new BaseModel<IUSer, UserClient>({
             return hashedPassword
         }
         user.password = hashedPassword.data
+        user.email = user.email.toLowerCase()
         return { data: user }
     }
 })
