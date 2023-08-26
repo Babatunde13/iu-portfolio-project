@@ -6,6 +6,9 @@ const props = defineProps<{
 const { deletePassword } = useStore();
 const emits = defineEmits(["close"]);
 
+/**
+ * Removes the password from the database and store then closes the modal
+ */
 const removePassword = () => {
     try {
         const status = deletePassword(props.id);

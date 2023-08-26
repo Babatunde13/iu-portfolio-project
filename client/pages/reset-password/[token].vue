@@ -13,6 +13,10 @@ const password = ref("");
 const confirmPassword = ref("");
 const isLoading = ref(false);
 
+/**
+ * Handles the form submission
+ * Sends a request to the server to reset the user's password
+ */
 const handleFormSubmission = async () => {
     try {
         // check if passwords match
@@ -35,7 +39,11 @@ const handleFormSubmission = async () => {
         useEvent("showError", "An error occurred while processing your request!");
     }
 };
-
+/**
+ * Confirms the reset token
+ * If the token is invalid, redirect to the reset password page
+ * If the token is valid, set the tokenVerified to true and allow the user to reset their password
+ */
 const confirmResetToken = async () => {
     try {
         const response = await $axios.post("verify-reset-password-token", {

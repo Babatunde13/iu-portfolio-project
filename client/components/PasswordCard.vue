@@ -16,7 +16,10 @@ const toggleAccount = (id: string) => {
     accountOpened.value = selectedPassword.value !== "";
 };
 
-// copy to clipboard
+/*
+* Copies the text to the clipboard
+* @param {string} text the text to copy to the clipboard
+*/
 const copyToClipboard = async (text: string) => {
     try {
         await navigator.clipboard.writeText(text);
@@ -26,13 +29,19 @@ const copyToClipboard = async (text: string) => {
     }
 };
 
-// toggle password visibility for selected account
+/**
+ * Toggles the visibility of the password
+ * @param {string} id the id of the password
+ */
 const togglePasswordVisibility = (id: string) => {
     if (selectedPassword.value === id) {
         showPassword.value = !showPassword.value;
     }
 };
 
+/**
+ * if the password is visible, show the password, else show *********
+ */
 const revealPassword = computed(() =>
     showPassword.value
         ? filteredPasswords.value.find(

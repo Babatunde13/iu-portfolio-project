@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 interface Props {
-    mode: string;
-    passwordToEdit: any;
+    mode: string; // you're editing or adding a password with this modal
+    passwordToEdit: any; // the password object to edit
 }
 
 const { categories } = storeToRefs(useStore());
@@ -9,12 +9,16 @@ const { addPassword, updatePassword } = useStore();
 const props = defineProps<Props>();
 const emits = defineEmits(["close"]);
 
-const accountName = ref("");
-const email = ref("");
-const password = ref("");
-const website = ref("");
-const category = ref("");
+const accountName = ref(""); // the name of the account
+const email = ref(""); // the email or username
+const password = ref(""); // the password
+const website = ref(""); // the website
+const category = ref(""); // the category id
 
+/**
+ * Checks if all fields are filled
+ * @returns {boolean} true if all fields are filled, false otherwise
+ */
 const checkAllFields = () => {
     if (
         website.value === "" ||
@@ -29,6 +33,9 @@ const checkAllFields = () => {
     return true;
 };
 
+/**
+ * Saves the changes to the password
+ */
 const saveChanges = async () => {
     try {
         if (!checkAllFields()) return;
@@ -56,7 +63,7 @@ const saveChanges = async () => {
     }
 };
 
-if (props.mode === "edit") {
+if (props.mode === "edit") { // if you're editing a password, fill the fields with the password's data
     website.value = props.passwordToEdit.website;
     accountName.value = props.passwordToEdit.account_name;
     category.value = categories.value.find((cat: any) => cat._id === props.passwordToEdit.category)?.name || "";

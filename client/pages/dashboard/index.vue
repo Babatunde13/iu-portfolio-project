@@ -41,9 +41,10 @@ await getAllPasswords();
         <div class="container">
             <BaseSideBar />
 
+            <!-- Passwords list -->
             <div class="container__content">
                 <PageAction @toggle-add-modal="toggleAddEditModal('add')" />
-                <PasswordCard v-if="passwords && passwords.length > 0" @toggle-delete-modal="toggleDeleteModal"
+                <PasswordCard v-if="passwords?.length > 0" @toggle-delete-modal="toggleDeleteModal"
                     @toggle-edit-modal="toggleAddEditModal('edit', $event as Password)" />
             </div>
         </div>

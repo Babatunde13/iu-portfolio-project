@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 const { $axios } = useNuxtApp();
 const route = useRoute();
-const { logIn } = useStore();
+const { logIn } = useStore(); // this is a vuex action defined in store/index.ts to log in a user
 
+/**
+ * The text to display on the page
+ */
 const pageText = computed(() => {
     if (route.name === "signup") {
         return "Create an account and start managing your passwords effectively.";
@@ -33,7 +36,7 @@ const submitForm = async () => {
         }
 
         isLoading.value = true;
-        if (route.name === "signup") {
+        if (route.name === "signup") { // if the user is signing up
             if (password.value !== cpassword.value) {
                 useEvent("showError", "Passwords do not match");
                 isLoading.value = true;
@@ -46,9 +49,11 @@ const submitForm = async () => {
             }
 
             useEvent("showToast", "Account created successfully");
+            // if signup is successful, log the user in and redirect to dashboard
             return navigateTo("/");
         }
 
+        // if the user is logging in
         const data: LoginData = {
             email: email.value,
             password: password.value,

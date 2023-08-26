@@ -9,6 +9,9 @@ const { $axios } = useNuxtApp();
 const isLoading = ref(false);
 const email = ref("");
 
+/**
+ * Request a password reset link for the user from the server
+ */
 const forgotPassword = async () => {
     try {
         if (!email.value) return useEvent("showError", "Email is required!");
