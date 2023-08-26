@@ -63,7 +63,7 @@ export const sendMail = async (email: string, name: string, subject: string, tem
     const data = {
         from: {
             Email: envs.mail.sender,
-            Name: 'StrongPass Admin'
+            Name: 'SmaartPass Admin'
         },
         to: [
             {
